@@ -36,19 +36,19 @@
   margin-bottom: 20px;
 }
 
-.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:first-of-type,
-.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:nth-of-type(2),
-.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:nth-of-type(3) {
+.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:first-of-type:not(.form-item--error):not(.form-item--error-message),
+.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:nth-of-type(2):not(.form-item--error):not(.form-item--error-message),
+.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:nth-of-type(3):not(.form-item--error):not(.form-item--error-message) {
   display: inline-block;
   margin-right: 5px;
 }
 
-.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:first-of-type,
-.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:nth-of-type(2) {
+.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:first-of-type:not(.form-item--error):not(.form-item--error-message),
+.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:nth-of-type(2):not(.form-item--error):not(.form-item--error-message) {
   width: 70px;
 }
 
-.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:nth-of-type(3) {
+.bhcc-webform-date-of-birth--wrapper .fieldset-wrapper > div:nth-of-type(3):not(.form-item--error):not(.form-item--error-message) {
   width: 80px;
 }
 
