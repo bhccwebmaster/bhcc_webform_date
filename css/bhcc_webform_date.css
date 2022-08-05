@@ -3,10 +3,6 @@
  * Webform example composite styles.
  */
 
-.bhcc-webform-date--wrapper .fieldset-wrapper {
-  margin-bottom: 20px;
-}
-
 .bhcc-webform-date--wrapper .fieldset-wrapper > .form-item {
   display: inline-block;
   margin-right: 5px;
