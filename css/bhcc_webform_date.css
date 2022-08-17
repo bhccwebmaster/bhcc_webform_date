@@ -3,9 +3,10 @@
  * Webform example composite styles.
  */
 
-.bhcc-webform-date--wrapper .fieldset-wrapper > .form-item {
+.webform-submission-form .bhcc-webform-date--wrapper .fieldset-wrapper > .form-item {
   display: inline-block;
   margin-right: 5px;
+  margin-top: 0;
 }
 
 .bhcc-webform-date--wrapper .fieldset-wrapper > .form-item .date--day,
