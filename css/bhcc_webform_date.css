@@ -9,6 +9,10 @@
   margin-top: 0;
 }
 
+.webform-submission-form .bhcc-webform-date--wrapper .fieldset-wrapper > .field-prefix + .form-item {
+  margin-top: var(--spacing-large);
+}
+
 .bhcc-webform-date--wrapper .fieldset-wrapper > .form-item .date--day,
 .bhcc-webform-date--wrapper .fieldset-wrapper > .form-item .date--month {
   width: 70px;
