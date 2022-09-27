@@ -2,13 +2,9 @@
 
 namespace Drupal\bhcc_webform_date\Plugin\WebformElement;
 
-use Drupal\webform\Plugin\WebformElement\WebformCompositeBase;
-use Drupal\webform\WebformSubmissionInterface;
-use Drupal\bhcc_webform_date\Plugin\WebformElement\BHCCWebformDate;
-
 /**
  * Provides a 'bhcc_webform_date_of_birth' element.
- * 
+ *
  * @WebformElement(
  *   id = "bhcc_webform_date_of_birth",
  *   label = @Translation("BHCC Date Of Birth"),
@@ -18,7 +14,7 @@ use Drupal\bhcc_webform_date\Plugin\WebformElement\BHCCWebformDate;
  *   composite = TRUE,
  *   states_wrapper = TRUE,
  * )
- * 
+ *
  * @see \Drupal\webform_example_composite\Element\WebformExampleComposite
  * @see \Drupal\webform\Plugin\WebformElement\WebformCompositeBase
  * @see \Drupal\webform\Plugin\WebformElementBase

@@ -3,8 +3,6 @@
 namespace Drupal\bhcc_webform_date\Plugin\WebformElement;
 
 use Drupal\Core\Datetime\DateHelper;
-use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Datetime\Entity\DateFormat;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\Plugin\WebformElement\WebformCompositeBase;
 use Drupal\webform\WebformSubmissionInterface;
@@ -85,19 +83,18 @@ class BHCCWebformDate extends WebformCompositeBase {
       '#type' => 'textfield',
       '#title' => $this->t('Date minimum'),
       '#description' => $this->t('Specifies the minimum date.')
-        . ' ' . $this->t('To limit the minimum date to the submission date use the <code>[webform_submission:created:html_date]</code> token.')
-        . '<br /><br />'
-        . $this->t('Accepts any date in any <a href="https://www.gnu.org/software/tar/manual/html_chapter/tar_7.html#Date-input-formats">GNU Date Input Format</a>. Strings such as today, +2 months, and Dec 9 2004 are all valid.'),
+      . ' ' . $this->t('To limit the minimum date to the submission date use the <code>[webform_submission:created:html_date]</code> token.')
+      . '<br /><br />'
+      . $this->t('Accepts any date in any <a href="https://www.gnu.org/software/tar/manual/html_chapter/tar_7.html#Date-input-formats">GNU Date Input Format</a>. Strings such as today, +2 months, and Dec 9 2004 are all valid.'),
     ];
     $form['date']['date_container']['date_date_max'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Date maximum'),
       '#description' => $this->t('Specifies the maximum date.')
-        . ' ' . $this->t('To limit the maximum date to the submission date use the <code>[webform_submission:created:html_date]</code> token.')
-        . '<br /><br />'
-        . $this->t('Accepts any date in any <a href="https://www.gnu.org/software/tar/manual/html_chapter/tar_7.html#Date-input-formats">GNU Date Input Format</a>. Strings such as today, +2 months, and Dec 9 2004 are all valid.'),
+      . ' ' . $this->t('To limit the maximum date to the submission date use the <code>[webform_submission:created:html_date]</code> token.')
+      . '<br /><br />'
+      . $this->t('Accepts any date in any <a href="https://www.gnu.org/software/tar/manual/html_chapter/tar_7.html#Date-input-formats">GNU Date Input Format</a>. Strings such as today, +2 months, and Dec 9 2004 are all valid.'),
     ];
-
 
     // 04/05/2021
     // function override copied from Drupal\webform\Plugin\WebformElement\DateBase.php
@@ -123,11 +120,10 @@ class BHCCWebformDate extends WebformCompositeBase {
     $properties = $this->getConfigurationFormProperties($form, $form_state);
 
     $has_error = FALSE;
-    foreach($properties as $key => $value) {
+    foreach ($properties as $key => $value) {
       if (strpos($key, '#date_') === 0) {
 
         // Validate a proper date.
-
         // If no value, continue.
         if (empty($value)) {
           continue;
@@ -139,14 +135,14 @@ class BHCCWebformDate extends WebformCompositeBase {
         foreach ($date_values as $date_value) {
 
           // If not a token validate the date.
-          // eg. [webform_submission:created:html_date]
+          // eg. [webform_submission:created:html_date].
           if (!preg_match('/^\[[^]]+\]$/', $date_value)) {
 
             // Replace slashes with dashes so we always validate a UK format.
             $date_value = str_replace('/', '-', $date_value);
             if (strtotime($date_value) === FALSE) {
 
-              // mark form as having an error.
+              // Mark form as having an error.
               $has_error = TRUE;
 
               // Set the error.

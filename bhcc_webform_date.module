@@ -5,11 +5,11 @@
  * Contains customisations for the webform module.
  */
 
- \Drupal::moduleHandler()->loadInclude('webform', 'inc', 'includes/webform.theme.template');
+\Drupal::moduleHandler()->loadInclude('webform', 'inc', 'includes/webform.theme.template');
 
- /**
-  * Implements hook_theme().
-  */
+/**
+ * Implements hook_theme().
+ */
 function bhcc_webform_date_theme() {
   return [
     'bhcc_webform_date' => [
@@ -31,4 +31,3 @@ function template_preprocess_bhcc_webform_date(array &$variables) {
   // Here you can get the composite element and alter it.
   _template_preprocess_webform_composite($variables);
 }
-

@@ -120,7 +120,7 @@ class BHCCWebformDate extends WebformCompositeBase {
     $element_key = $element['#webform_key'] ?? end($element['#parents']);
     $form_errors = $form_state->getErrors();
     $form_state->clearErrors();
-    foreach($form_errors as $error_key => $error_value) {
+    foreach ($form_errors as $error_key => $error_value) {
       if (strpos($error_key, $element_key . ']') !== 0) {
         $form_state->setErrorByName($error_key, $error_value);
       }
@@ -148,7 +148,8 @@ class BHCCWebformDate extends WebformCompositeBase {
       if (!empty($element['#required']) || (!empty($element['#day__required']) && !empty($element['#month__required']) && !empty($element['#year__required']))) {
         $form_state->setError($element, $element['#title'] . t(' field is required.'));
         return FALSE;
-      } else {
+      }
+      else {
         return;
       }
     }
@@ -204,4 +205,5 @@ class BHCCWebformDate extends WebformCompositeBase {
       }
     }
   }
+
 }
