@@ -146,7 +146,7 @@ class BHCCWebformDate extends WebformCompositeBase {
     // Else skip validation to prevent stopping the form submitting.
     if (empty($date_values['day']) && empty($date_values['month']) && empty($date_values['year'])) {
       if (!empty($element['#required']) || (!empty($element['#day__required']) && !empty($element['#month__required']) && !empty($element['#year__required']))) {
-        $form_state->setError($element, $element['#title'] . t('field is required.'));
+        $form_state->setError($element, t('@title field is required.', $element['#title']));
         return FALSE;
       }
       else {
