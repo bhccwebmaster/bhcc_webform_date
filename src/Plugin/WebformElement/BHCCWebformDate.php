@@ -97,13 +97,17 @@ class BHCCWebformDate extends WebformCompositeBase {
     ];
 
     // 04/05/2021
-    // function override copied from Drupal\webform\Plugin\WebformElement\DateBase.php
+    // Function override copied from
+    // Drupal\webform\plugin\webformelement\datebase.php
     // Date days of the week validation.
     $form['date']['date_container']['days_of_week'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Date days of the week'),
       '#options' => DateHelper::weekDaysAbbr(TRUE),
-      '#element_validate' => [['\Drupal\webform\Utility\WebformElementHelper', 'filterValues']],
+      '#element_validate' => [['\Drupal\webform\Utility\WebformElementHelper',
+        'filterValues',
+      ],
+      ],
       '#description' => $this->t('Specifies the day(s) of the week. Please note, the date picker will disable unchecked days of the week.'),
       '#options_display' => 'side_by_side',
       '#required' => TRUE,

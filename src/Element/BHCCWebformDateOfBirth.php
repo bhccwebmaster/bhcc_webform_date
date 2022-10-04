@@ -2,8 +2,6 @@
 
 namespace Drupal\bhcc_webform_date\Element;
 
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-
 /**
  * Provides a 'bhcc_webform_date_of_birth'.
  *
