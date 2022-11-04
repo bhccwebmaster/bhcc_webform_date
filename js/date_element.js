@@ -7,27 +7,14 @@
    */
   function hideErrorsOnElement(indvElement) {
     var indvElementWrapper = indvElement.find('.js-form-item');
-    var dateElementErrorMessages = indvElementWrapper.find('div.form-item--error-message');
-    // indvElementWrapper.removeClass('has-error');
-    // indvElement.find('input + .invalid-feedback').remove();
     // get all the sub date elements showing an error
-    //var dateElementErrorMessages = $('div.form-item--error-message');
+    var dateElementErrorMessages = indvElementWrapper.find('div.form-item--error-message');;
     // skip the 1st as this is the parent date element
     for (i = 0; i < dateElementErrorMessages.length; i++) {
       dateElementErrorMessages.eq(i).addClass('visually-hidden');
     }
   }
-/*     var indvElementWrapper = indvElement.find('.js-form-item');
-    var indvElementWrapperDiv = indvElementWrapper.find('.div');
-    // indvElementWrapper.removeClass('has-error');
-    // indvElement.find('input + .invalid-feedback').remove();
-    // get all the sub date elements showing an error
-    var dateElementErrorMessages = $('div.form-item--error-message');
-    // skip the 1st as this is the parent date element
-    for (i = 1; i <= dateElementErrorMessages.length; i++) {
-      dateElementErrorMessages.eq(i).addClass('visually-hidden');
-    }
-  } */
+
 
   Drupal.behaviors.bhcc_webform_date = {
     attach: function(context, settings) {
