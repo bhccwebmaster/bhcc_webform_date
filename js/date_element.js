@@ -7,6 +7,7 @@
    */
   function hideErrorsOnElement(indvElement) {
     var indvElementWrapper = indvElement.find('.js-form-item');
+    indvElementWrapper.addClass('visually-hidden');
     indvElementWrapper.removeClass('has-error');
     indvElement.find('input + .invalid-feedback').remove();
   }
