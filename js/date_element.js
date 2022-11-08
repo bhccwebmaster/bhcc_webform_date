@@ -7,11 +7,12 @@
    */
   function hideErrorsOnElement(indvElement) {
     var indvElementWrapper = indvElement.find('.js-form-item');
+    indvElementWrapper.removeClass('form-item--error');
     // get all the sub date elements showing an error
     var dateElementErrorMessages = indvElementWrapper.find('div.form-item--error-message');;
     // skip the 1st as this is the parent date element
     for (i = 0; i < dateElementErrorMessages.length; i++) {
-      dateElementErrorMessages.eq(i).addClass('visually-hidden');
+      dateElementErrorMessages.eq(i).addClass('hidden');
     }
   }
 
