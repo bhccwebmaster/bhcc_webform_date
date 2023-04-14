@@ -28,4 +28,31 @@ use Drupal\localgov_forms_date\Element\LocalgovFormsDate;
  */
 class BHCCWebformDate extends LocalgovFormsDate {
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getInfo() {
+/*     $parentInfo = parent::getInfo();
+    $childInfo = [
+      '#description' => $this->t('For example 08/02/1982'),
+    ];
+    $returnInfo = array_replace($parentInfo, $childInfo);
+    return $returnInfo; */
+    $today = strtotime('now');
+    $todayFormat = date('d/m/Y', $today);
+    $description = 'For example ' . $todayFormat;
+    $parentInfo = parent::getInfo();
+    $childInfo = [
+      '#description' => $this->t($description),
+    ];
+/*     $childInfo = [
+      '#title_display' => 'before',
+    ]; */
+    $returnInfo = array_replace($parentInfo, $childInfo);
+/*     return $returnInfo + [
+      '#theme' => 'bhcc_webform_date',
+      '#description' => $description,
+    ];  */ 
+    return $returnInfo;  
+  }
 }

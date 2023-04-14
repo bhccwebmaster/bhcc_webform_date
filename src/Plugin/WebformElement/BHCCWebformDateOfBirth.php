@@ -2,6 +2,8 @@
 
 namespace Drupal\bhcc_webform_date\Plugin\WebformElement;
 
+use Drupal\localgov_forms_date\Plugin\WebformElement\LocalgovFormsDOB;
+
 /**
  * Provides a 'bhcc_webform_date_of_birth' element.
  *
@@ -21,6 +23,6 @@ namespace Drupal\bhcc_webform_date\Plugin\WebformElement;
  * @see \Drupal\webform\Plugin\WebformElementInterface
  * @see \Drupal\webform\Annotation\WebformElement
  */
-class BHCCWebformDateOfBirth extends BHCCWebformDate {
+class BHCCWebformDateOfBirth extends LocalgovFormsDOB {
 
 }
