@@ -23,6 +23,6 @@ use Drupal\localgov_forms_date\Plugin\WebformElement\LocalgovFormsDOB;
  * @see \Drupal\webform\Plugin\WebformElementInterface
  * @see \Drupal\webform\Annotation\WebformElement
  */
-class BHCCWebformDateOfBirth extends LocalgovFormsDOB {
+class BHCCWebformDateOfBirth extends BHCCWebformDate {
 
 }
