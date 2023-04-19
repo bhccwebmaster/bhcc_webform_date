@@ -32,31 +32,26 @@ function template_preprocess_bhcc_webform_date(array &$variables) {
   _template_preprocess_webform_composite($variables);
 }
 
-
+/**
+ *
+ */
 function bhcc_webform_date_preprocess_datetime_form(array &$variables) {
 
-// Check that this is a bhcc_webform_date form element.
-
-/*   $extended_localgov_date_elements = [
-    'bhcc_webform_date_of_birth',
-    'bhcc_webform_date',
+  // Check that this is a bhcc_webform_date form element.
+  /*   $extended_localgov_date_elements = [
+  'bhcc_webform_date_of_birth',
+  'bhcc_webform_date',
   ]; */
   $extended_bhcc_webform_elements = [
     'bhcc_webform_date_of_birth',
     'bhcc_webform_date',
-  ]; 
+  ];
 
   $type = $variables['element']['#type'];
 
   if (in_array($type, $extended_bhcc_webform_elements)) {
-    //$variables['attributes']['class'][] = 'localgov-forms-date bhcc-localgov-date';
+    // $variables['attributes']['class'][] = 'localgov-forms-date bhcc-localgov-date';
     $variables['attributes']['class'][] = 'localgov-forms-date bhcc-localgov-date';
   }
 
 }
-
-
-
-
-
-

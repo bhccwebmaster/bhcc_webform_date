@@ -2,8 +2,6 @@
 
 namespace Drupal\bhcc_webform_date\Element;
 
-use Drupal\localgov_forms_date\Element\LocalgovFormsDOB;
-
 /**
  * Provides a 'bhcc_webform_date_of_birth'.
  *
