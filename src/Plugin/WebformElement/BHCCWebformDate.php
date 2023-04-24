@@ -23,6 +23,4 @@ use Drupal\localgov_forms_date\Plugin\WebformElement\LocalgovFormsDate;
  *
  * @see Drupal\localgov_forms_date\Plugin\WebformElement\LocalgovFormsDate
  */
-class BHCCWebformDate extends LocalgovFormsDate {
-
-}
+class BHCCWebformDate extends LocalgovFormsDate {}

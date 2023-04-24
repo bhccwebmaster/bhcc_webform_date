@@ -21,6 +21,4 @@ namespace Drupal\bhcc_webform_date\Plugin\WebformElement;
  * @see \Drupal\webform\Plugin\WebformElementInterface
  * @see \Drupal\webform\Annotation\WebformElement
  */
-class BHCCWebformDateOfBirth extends BHCCWebformDate {
-
-}
+class BHCCWebformDateOfBirth extends BHCCWebformDate {}
