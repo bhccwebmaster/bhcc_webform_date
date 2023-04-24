@@ -62,17 +62,17 @@ class BHCCWebformDate extends LocalgovFormsDate {
             $date_placeholder = $error_value->getArguments();
             if (isset($date_placeholder['%min']) || isset($date_placeholder['%max'])) {
 
-              // Format error into correct date format (dd-mm-YYYY)
+              // Format error into correct date format (dd/mm/YYYY)
               // if the date has min or max allowable values.
               if (isset($date_placeholder['%min'])) {
-                $date = date('d-m-Y', strtotime($date_placeholder['%min']));
+                $date = date('d/m/Y', strtotime($date_placeholder['%min']));
                 $error_string = t('@element_name must be on or after @date', [
                   '@element_name' => $date_placeholder['%name'],
                   '@date' => $date,
                 ]);
               }
               else {
-                $date = date('d-m-Y', strtotime($date_placeholder['%max']));
+                $date = date('d/m/Y', strtotime($date_placeholder['%max']));
                 $error_string = " must be on or before ";
                 $error_string = t('@element_name must be on or before @date', [
                   '@element_name' => $date_placeholder['%name'],
