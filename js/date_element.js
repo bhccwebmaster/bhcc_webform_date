@@ -19,7 +19,7 @@
 
   Drupal.behaviors.bhcc_webform_date = {
     attach: function(context, settings) {
-      $('.js-webform-type-bhcc-webform-date', context).once('hide-errors-on-element').each(function() {
+      $(once('hide-errors-on-element', '.js-webform-type-bhcc-webform-date', context)).each(function () {
         hideErrorsOnElement($(this));
       });
     }
