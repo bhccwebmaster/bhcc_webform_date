@@ -1,4 +1,8 @@
-(function($) {
+/**
+ * @file
+ *  Date element
+ */
+(function($, once) {
 
   /**
    * Hide errors on an element
@@ -25,4 +29,4 @@
     }
   }
 
-}) (jQuery);
+}) (jQuery, once);
