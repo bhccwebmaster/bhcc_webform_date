@@ -13,3 +13,4 @@ bhcc_webform_date.date_element:
   dependencies:
     - core/drupal
     - core/jquery
+    - core/once
