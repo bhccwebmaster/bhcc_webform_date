@@ -17,7 +17,7 @@ elements: |-
     '#title': 'First page'
     first_date:
       '#type': bhcc_webform_date
-      '#title': 'Date - minimum today'
+      '#title': 'Minimum Today Date'
       '#date_date_min': today
 css: ''
 javascript: ''

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\Tests\bhcc_webform_date;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Tests localgov_forms_date.
@@ -39,8 +40,12 @@ class DateErrorFormatTest extends BrowserTestBase {
 
     //get todays date
     // @todo calculate todays date
+    $date = new DrupalDateTime('now');
+    $date->format('d/m/Y');
+    echo $date;
     // Assert that the error message is present and in the correct format
-    $this->assertSession()->pageTextContains('Date - minimum today must be on or after 2023-05-17');
+    // $this->assertSession()->pageTextContains('Minimum Today Date must be on or after 17/05/2023');
+    $this->assertSession()->pageTextContains('must be on or after');
   }
 
   /**

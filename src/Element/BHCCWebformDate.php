@@ -5,6 +5,7 @@ namespace Drupal\bhcc_webform_date\Element;
 use Drupal\localgov_forms_date\Element\LocalgovFormsDate;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Provides a 'bhcc_webform_date'.
@@ -33,6 +34,7 @@ class BHCCWebformDate extends LocalgovFormsDate {
     $parentInfo = parent::getInfo();
     $childInfo = [
       '#description' => $description,
+      //'#date_date_format' => 'd/m/Y',
     ];
     $returnInfo = array_replace($parentInfo, $childInfo);
     return $returnInfo;
@@ -43,42 +45,13 @@ class BHCCWebformDate extends LocalgovFormsDate {
    */
   public static function validateDatelist(&$element, FormStateInterface $form_state, &$complete_form) {
 
-    // parent::validateDatelist($element, $form_state, $complete_form);
-    $form_errors = $form_state->getErrors();
-    $form_state->clearErrors();
-    if ($form_errors) {
-      foreach ($form_errors as $error_key => $error_value) {
-        // If arguments are null then this has already been dealt with.
-        // @todo find out when it might not be instanceof TranslatableMarkup
-        if (($error_value instanceof TranslatableMarkup) && (!is_null($error_value->getArguments()))) {
-          $date_placeholder = $error_value->getArguments();
-          if (isset($date_placeholder['%min']) || isset($date_placeholder['%max'])) {
-            // Format error into correct date format (dd/mm/YYYY)
-            // if the date has min or max allowable values.
-            if (isset($date_placeholder['%min'])) {
-              $date = date('d/m/Y', strtotime($date_placeholder['%min']));
-              $error_string = t('@element_name must be on or after @date', [
-                '@element_name' => $date_placeholder['%name'],
-                '@date' => $date,
-              ]);
-            }
-            else {
-              $date = date('d/m/Y', strtotime($date_placeholder['%max']));
-              $error_string = " must be on or before ";
-              $error_string = t('@element_name must be on or before @date', [
-                '@element_name' => $date_placeholder['%name'],
-                '@date' => $date,
-              ]);
-            }
+    $element['#date_date_format'] = 'd/m/Y';
+    $element['#date_time_format'] = 'H:i:s';
+    $element['#date_time_element'] = 'none';
+ /*    $today = strtotime('now');
+    $todayFormat = date('d/m/Y', $today);
+    echo $todayFormat; */
+    parent::validateDatelist($element, $form_state, $complete_form);
 
-            // unset($error_value);
-            $error_value = $error_string;
-          }
-        }
-        // add all values back in
-        $form_state->setErrorByName($error_key, $error_value);
-      }
-    }
-    return;
   }
 }
