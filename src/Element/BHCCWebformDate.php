@@ -45,6 +45,7 @@ class BHCCWebformDate extends LocalgovFormsDate {
 
     // parent::validateDatelist($element, $form_state, $complete_form);
     $form_errors = $form_state->getErrors();
+    $form_state->clearErrors();
     if ($form_errors) {
       foreach ($form_errors as $error_key => $error_value) {
         // If arguments are null then this has already been dealt with.
