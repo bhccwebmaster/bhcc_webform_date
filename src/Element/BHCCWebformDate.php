@@ -43,59 +43,41 @@ class BHCCWebformDate extends LocalgovFormsDate {
    */
   public static function validateDatelist(&$element, FormStateInterface $form_state, &$complete_form) {
 
-    // Only process if it is of type
-    // Bhcc_webform_date or bhcc_webform_date_of_birth.
-    if ($element['#type'] != "bhcc_webform_date" && $element['#type'] != "bhcc_webform_date_of_birth") {
-      return;
-    }
-    parent::validateDatelist($element, $form_state, $complete_form);
-
+    // parent::validateDatelist($element, $form_state, $complete_form);
     $form_errors = $form_state->getErrors();
     if ($form_errors) {
-      $form_state->clearErrors();
       foreach ($form_errors as $error_key => $error_value) {
-        if ($error_value instanceof TranslatableMarkup) {
-
-          // If arguments are null then this has already been dealt with.
-          if (NULL != $error_value->getArguments()) {
-
-            $date_placeholder = $error_value->getArguments();
-            if (isset($date_placeholder['%min']) || isset($date_placeholder['%max'])) {
-
-              // Format error into correct date format (dd/mm/YYYY)
-              // if the date has min or max allowable values.
-              if (isset($date_placeholder['%min'])) {
-                $date = date('d/m/Y', strtotime($date_placeholder['%min']));
-                $error_string = t('@element_name must be on or after @date', [
-                  '@element_name' => $date_placeholder['%name'],
-                  '@date' => $date,
-                ]);
-              }
-              else {
-                $date = date('d/m/Y', strtotime($date_placeholder['%max']));
-                $error_string = " must be on or before ";
-                $error_string = t('@element_name must be on or before @date', [
-                  '@element_name' => $date_placeholder['%name'],
-                  '@date' => $date,
-                ]);
-              }
-
-              unset($error_value);
-              $form_state->setErrorByName($error_key, $error_string);
+        // If arguments are null then this has already been dealt with.
+        // @todo find out when it might not be instanceof TranslatableMarkup
+        if (($error_value instanceof TranslatableMarkup) && (!is_null($error_value->getArguments()))) {
+          $date_placeholder = $error_value->getArguments();
+          if (isset($date_placeholder['%min']) || isset($date_placeholder['%max'])) {
+            // Format error into correct date format (dd/mm/YYYY)
+            // if the date has min or max allowable values.
+            if (isset($date_placeholder['%min'])) {
+              $date = date('d/m/Y', strtotime($date_placeholder['%min']));
+              $error_string = t('@element_name must be on or after @date', [
+                '@element_name' => $date_placeholder['%name'],
+                '@date' => $date,
+              ]);
             }
             else {
-              // This handles required fields where argument
-              // '%field' is used add it back in.
-              $form_state->setErrorByName($error_key, $error_value);
+              $date = date('d/m/Y', strtotime($date_placeholder['%max']));
+              $error_string = " must be on or before ";
+              $error_string = t('@element_name must be on or before @date', [
+                '@element_name' => $date_placeholder['%name'],
+                '@date' => $date,
+              ]);
             }
+
+            // unset($error_value);
+            $error_value = $error_string;
           }
         }
-        else {
-          // Add back in all other errors.
-          $form_state->setErrorByName($error_key, $error_value);
-        }
+        // add all values back in
+        $form_state->setErrorByName($error_key, $error_value);
       }
     }
+    return;
   }
-
 }
