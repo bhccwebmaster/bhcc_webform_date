@@ -17,7 +17,8 @@ use Drupal\Core\Datetime\DateHelper;
  * Webform composites contain a group of sub-elements.
  *
  * IMPORTANT:
- * Webform composite can not contain multiple value elements (i.e. checkboxes) or composites (i.e. webform_address)
+ * Webform composite can not contain multiple value elements (i.e. checkboxes)
+ * or composites (i.e. webform_address)
  *
  * @FormElement("bhcc_webform_date")
  *
