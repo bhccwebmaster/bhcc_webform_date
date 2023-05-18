@@ -8,17 +8,6 @@
 \Drupal::moduleHandler()->loadInclude('webform', 'inc', 'includes/webform.theme.template');
 
 /**
- * Implements hook_theme().
- */
-function bhcc_webform_date_theme() {
-  return [
-    'bhcc_webform_date' => [
-      'render element' => 'element',
-    ],
-  ];
-}
-
-/**
  * Prepares variables for BHCC Webform templates.
  *
  * Default template: bhcc_webform_date.html.twig.
