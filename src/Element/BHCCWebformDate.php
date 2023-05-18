@@ -3,9 +3,6 @@
 namespace Drupal\bhcc_webform_date\Element;
 
 use Drupal\localgov_forms_date\Element\LocalgovFormsDate;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Provides a 'bhcc_webform_date'.
@@ -42,18 +39,4 @@ class BHCCWebformDate extends LocalgovFormsDate {
     return $returnInfo;
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function validateDatelist(&$element, FormStateInterface $form_state, &$complete_form) {
-
-/*     $element['#date_date_format'] = 'd/m/Y';
-    $element['#date_time_format'] = 'H:i:s';
-    $element['#date_time_element'] = 'none'; */
- /*    $today = strtotime('now');
-    $todayFormat = date('d/m/Y', $today);
-    echo $todayFormat; */
-    parent::validateDatelist($element, $form_state, $complete_form);
-
-  }
 }

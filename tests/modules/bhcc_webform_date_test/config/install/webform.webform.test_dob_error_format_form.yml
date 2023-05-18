@@ -7,8 +7,8 @@ close: null
 uid: 1
 template: false
 archive: false
-id: test_date_error_format_form
-title: 'Date error format test form'
+id: test_dob_error_format_form
+title: 'Date of birth error format test form'
 description: ''
 category: ''
 elements: |-
@@ -16,7 +16,7 @@ elements: |-
     '#type': webform_wizard_page
     '#title': 'First page'
     first_date:
-      '#type': bhcc_webform_date
+      '#type': bhcc_webform_date_of_birth
       '#title': 'Minimum Today Date'
       '#date_date_min': 1/1/2023
 css: ''
