@@ -34,7 +34,9 @@ class BHCCWebformDate extends LocalgovFormsDate {
     $parentInfo = parent::getInfo();
     $childInfo = [
       '#description' => $description,
-      //'#date_date_format' => 'd/m/Y',
+      '#date_date_format' => 'd/m/Y',
+      '#date_time_format' => 'H:i:s',
+      '#date_time_element' => 'none',
     ];
     $returnInfo = array_replace($parentInfo, $childInfo);
     return $returnInfo;
@@ -45,9 +47,9 @@ class BHCCWebformDate extends LocalgovFormsDate {
    */
   public static function validateDatelist(&$element, FormStateInterface $form_state, &$complete_form) {
 
-    $element['#date_date_format'] = 'd/m/Y';
+/*     $element['#date_date_format'] = 'd/m/Y';
     $element['#date_time_format'] = 'H:i:s';
-    $element['#date_time_element'] = 'none';
+    $element['#date_time_element'] = 'none'; */
  /*    $today = strtotime('now');
     $todayFormat = date('d/m/Y', $today);
     echo $todayFormat; */

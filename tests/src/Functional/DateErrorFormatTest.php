@@ -40,12 +40,12 @@ class DateErrorFormatTest extends BrowserTestBase {
 
     //get todays date
     // @todo calculate todays date
-    $date = new DrupalDateTime('now');
+ /*    $date = new DrupalDateTime('now');
     $date->format('d/m/Y');
-    echo $date;
+    echo $date; */
     // Assert that the error message is present and in the correct format
-    // $this->assertSession()->pageTextContains('Minimum Today Date must be on or after 17/05/2023');
-    $this->assertSession()->pageTextContains('must be on or after');
+
+    $this->assertSession()->pageTextContains('Minimum Today Date must be on or after');
   }
 
   /**
