@@ -32,7 +32,7 @@ class BHCCWebformDate extends LocalgovFormsDate {
     $childInfo = [
       '#description' => $description,
       '#date_date_format' => 'd/m/Y',
-      '#date_time_format' => 'H:i:s',
+      /* '#date_time_format' => 'H:i:s', */
       '#date_time_element' => 'none',
     ];
     $returnInfo = array_replace($parentInfo, $childInfo);
