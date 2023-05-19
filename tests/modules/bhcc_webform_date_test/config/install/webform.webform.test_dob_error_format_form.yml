@@ -17,8 +17,12 @@ elements: |-
     '#title': 'First page'
     first_date:
       '#type': bhcc_webform_date_of_birth
-      '#title': 'Minimum Today Date'
+      '#title': 'Minimum Date 1/1/2023'
       '#date_date_min': 1/1/2023
+    second_date:
+      '#type': bhcc_webform_date_of_birth
+      '#title': 'Minimum Today Date'
+      '#date_date_min': today
 css: ''
 javascript: ''
 settings:
