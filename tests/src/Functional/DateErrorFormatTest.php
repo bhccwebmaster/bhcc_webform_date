@@ -33,46 +33,34 @@ class DateErrorFormatTest extends BrowserTestBase {
    */
   public function testDateErrorFormat() :void {
 
-    // Load the form.
-    $this->drupalGet('/webform/test_date_error_format_form');
-
-    // Fill in the date element and then proceed to submit the page.
-    $form_values = [
-      'first_date[day]'   => 1,
-      'first_date[month]' => 1,
-      'first_date[year]'  => 1900,
-      'second_date[day]'   => 1,
-      'second_date[month]' => 1,
-      'second_date[year]'  => 1900,
+    $forms = [
+      '/webform/test_date_error_format_form',
+      '/webform/test_dob_error_format_form',
     ];
-    $this->submitForm($form_values, 'Submit');
 
-    // Assert that the error messages are present and in the correct format.
-    $this->assertSession()->pageTextContains('Minimum Date 1/1/2023 must be on or after 01/01/2023');
-    // Get todays date.
-    $now = date('d/m/Y');
-    $this->assertSession()->pageTextContains('Minimum Today Date must be on or after ' . $now);
+    foreach ($forms as $form) {
 
-    // Load the form.
-    $this->drupalGet('/webform/test_dob_error_format_form');
+      // Load the form.
+      $this->drupalGet($form);
 
-    // Fill in the date element and then proceed to submit the page.
-    $form_values = [
-      'first_date[day]'   => 1,
-      'first_date[month]' => 1,
-      'first_date[year]'  => 1900,
-      'second_date[day]'   => 1,
-      'second_date[month]' => 1,
-      'second_date[year]'  => 1900,
-    ];
-    $this->submitForm($form_values, 'Submit');
+      // Fill in the date element and then proceed to submit the page.
+      $form_values = [
+        'first_date[day]'   => 1,
+        'first_date[month]' => 1,
+        'first_date[year]'  => 1900,
+        'second_date[day]'   => 1,
+        'second_date[month]' => 1,
+        'second_date[year]'  => 1900,
+      ];
+      $this->submitForm($form_values, 'Submit');
 
-    // Assert that the error messages are present and in the correct format.
-    $this->assertSession()->pageTextContains('Minimum Date 1/1/2023 must be on or after 01/01/2023');
-    // Get todays date.
-    $now = date('d/m/Y');
-    $this->assertSession()->pageTextContains('Minimum Today Date must be on or after ' . $now);
+      // Assert that the error messages are present and in the correct format.
+      $this->assertSession()->pageTextContains('Minimum Date 1/1/2023 must be on or after 01/01/2023');
+      // Get todays date.
+      $now = date('d/m/Y');
+      $this->assertSession()->pageTextContains('Minimum Today Date must be on or after ' . $now);
 
+    }
   }
 
   /**
