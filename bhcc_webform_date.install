@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_preprocess_datetime_form().
+ */
+function bhcc_webform_date_install($is_syncing) {
+
+  if (!$is_syncing) {
+    $config_id = 'core.date_format.localgov_forms_date_short_date';
+    $config = \Drupal::configFactory()->getEditable($config_id);
+    $config->set('pattern', 'd/m/Y');
+    $config->save();
+  }
+
+}
