@@ -1,7 +1,12 @@
 <?php
 
 /**
- * Implements hook_preprocess_datetime_form().
+ * @file
+ * Contains customisations for the webform date install.
+ */
+
+/**
+ * Implements hook_install().
  */
 function bhcc_webform_date_install($is_syncing) {
 
