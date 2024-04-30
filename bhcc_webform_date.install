@@ -6,15 +6,55 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function bhcc_webform_date_update_dependencies() {
+
+  // Update the localgov_forms_date after it has been installed.
+  $dependencies['bhcc_webform_date'][8001] = [
+    'localgov_forms_date' => 8002,
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Implements hook_install().
  */
 function bhcc_webform_date_install($is_syncing) {
-
   if (!$is_syncing) {
-    $config_id = 'core.date_format.localgov_forms_date_short_date';
-    $config = \Drupal::configFactory()->getEditable($config_id);
-    $config->set('pattern', 'd/m/Y');
-    $config->save();
+    _bhcc_webform_date_fix_date_config();
+    _bhcc_webform_date_fix_date_time_config();
   }
+}
 
+/**
+ * Update localgov_forms_date_short_date to BHCC format.
+ *
+ * Handle case where config imports before update which reverts the date
+ * format change.
+ */
+function bhcc_webform_date_update_8001() {
+  _bhcc_webform_date_fix_date_config();
+  _bhcc_webform_date_fix_date_time_config();
+}
+
+/**
+ * Helper function to set the localgov_forms_date_short_date config.
+ */
+function _bhcc_webform_date_fix_date_config() {
+  $config_id = 'core.date_format.localgov_forms_date_short_date';
+  $config = \Drupal::configFactory()->getEditable($config_id);
+  $config->set('pattern', 'd/m/Y');
+  $config->save();
+}
+
+/**
+ * Helper function to set the localgov_forms_date_datetime config.
+ */
+function _bhcc_webform_date_fix_date_time_config() {
+  $config_id = 'core.date_format.localgov_forms_date_datetime';
+  $config = \Drupal::configFactory()->getEditable($config_id);
+  $config->set('pattern', 'd/m/Y\TH:i:sO');
+  $config->save();
 }
