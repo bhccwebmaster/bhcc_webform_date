@@ -38,83 +38,21 @@ class BHCCWebformDate extends LocalgovFormsDate {
    * a UK Style format e.g dd-mm-yyyy.
    */
   public static function validateDate(&$element, FormStateInterface $form_state, &$complete_form) {
+    parent::validateDate($element, $form_state, $complete_form);
 
-    $value = $element['#value'];
-    $name = empty($element['#title']) ? $element['#parents'][0] : $element['#title'];
-    $date_date_format = (!empty($element['#date_date_format'])) ? $element['#date_date_format'] : DateFormat::load('html_date')->getPattern();
+    // get the error and strip out anything after the space - the time part
 
-    // Convert DrupalDateTime array and object to ISO datetime.
-    if (is_array($value)) {
-      $value = ($value['object']) ? $value['object']->format(DateFormat::load('html_datetime')->getPattern()) : '';
-    }
-    elseif ($value) {
-      $datetime = WebformDateHelper::createFromFormat($date_date_format, $value);
-      if ($datetime === FALSE || static::formatDate($date_date_format, $datetime->getTimestamp()) !== $value) {
-        $form_state->setError($element, t('%name must be a valid date.', ['%name' => $name]));
-        $value = '';
-      }
-      else {
-        // Clear timestamp to date elements.
-        if ($element['#type'] === 'date') {
-          $datetime->setTime(0, 0, 0);
-          $value = $datetime->format(DateFormat::load('html_date')->getPattern());
-        }
-        else {
-          $value = $datetime->format(DateFormat::load('html_datetime')->getPattern());
+    if (!empty($form_state->getError($element))) {
+      $form_errors = $form_state->getErrors();
+      //$form_state->clearErrors();
+      foreach ($form_errors as $error_key => $error_value) {
+        $arguments = $error_value->getArguments();
+        $string = $error_value->getUntranslatedString();
+        if (str_contains($string, '%name must be on or before %max.') || str_contains($string, '%name must be on or after %min.')) {
+          //strip the time from argument 2 - %max
+          $arguments['%max'] = substr($arguments['%max'], 0, strrpos($arguments['%max'], ' '));
         }
       }
-    }
-
-    $form_state->setValueForElement($element, $value);
-    if ($value === '') {
-      return;
-    }
-
-    $time = strtotime($value);
-
-    // Ensure that the input is greater than the #date_date_min property, if set.
-    if (!empty($element['#date_date_min'])) {
-      $min = strtotime(static::formatDate('Y-m-d', strtotime($element['#date_date_min'])));
-      if ($time < $min) {
-        $form_state->setError($element, t('%name must be on or after %min.', [
-          '%name' => $name,
-          '%min' => static::formatDate($date_date_format, $min),
-        ]));
-      }
-    }
-
-    // Ensure that the input is less than the #date_date_max property, if set.
-    if (!empty($element['#date_date_max'])) {
-      $max = strtotime(static::formatDate('Y-m-d 23:59:59', strtotime($element['#date_date_max'])));
-      if ($time > $max) {
-        $form_state->setError($element, t('%name must be on or before %max.', [
-          '%name' => $name,
-          '%max' => static::formatDate($date_date_format, $max),
-        ]));
-      }
-    }
-
-    // Ensure that the input is greater than the #date_min property, if set.
-    if (!empty($element['#date_min'])) {
-      $min = strtotime($element['#date_min']);
-      if ($time < $min) {
-        $form_state->setError($element, t('%name must be on or after %min.', [
-          '%name' => $name,
-          '%min' => static::formatDate($date_date_format, $min),
-        ]));
-      }
-    }
-
-    // Ensure that the input is less than the #date_max property, if set.
-    if (!empty($element['#date_max'])) {
-      $max = strtotime($element['#date_max']);
-      if ($time > $max) {
-        $form_state->setError($element, t('%name must be on or before %max.', [
-          '%name' => $name,
-          '%max' => static::formatDate($date_date_format, $max),
-        ]));
-      }
-
     }
   }
 
