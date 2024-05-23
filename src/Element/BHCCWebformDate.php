@@ -31,7 +31,7 @@ class BHCCWebformDate extends LocalgovFormsDate {
     $parentInfo = parent::getInfo();
     $childInfo = [
       '#description' => $description,
-      '#date_date_format' => 'd/m/Y',
+      //'#date_date_format' => 'd/m/Y',
       /* '#date_time_format' => 'H:i:s', */
       '#date_time_element' => 'none',
     ];
