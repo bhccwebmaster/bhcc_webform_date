@@ -5,6 +5,10 @@
  * Contains customisations for the webform date install.
  */
 
+use Drupal\webform\Entity\Webform;
+
+const LOG_NAME = 'bhcc_webform_date';
+
 /**
  * Implements hook_update_dependencies().
  */
@@ -37,6 +41,66 @@ function bhcc_webform_date_install($is_syncing) {
 function bhcc_webform_date_update_8001() {
   _bhcc_webform_date_fix_date_config();
   _bhcc_webform_date_fix_date_time_config();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Ensure that date_min and date_max are not used.
+ */
+function bhcc_webform_date_update_10101(&$sandbox) {
+
+  if (!isset($sandbox['total'])) {
+
+    // Fetch all webform IDs.
+    // $webforms = \Drupal::entityTypeManager()->getStorage('webform');
+    $sandbox['webforms'] = array_values(\Drupal::service('entity_type.manager')
+      ->getStorage('webform')
+      ->getQuery()
+      ->execute());
+    $sandbox['total'] = count($sandbox['webforms']);
+    $sandbox['current'] = 0;
+  }
+
+  // Loop through webforms, 10 at a time.
+  $limit = 10;
+  $max = $sandbox['current'] + $limit;
+  for ($i = $sandbox['current']; $i < $max; $i++) {
+    if (isset($sandbox['webforms'][$i])) {
+      $webform = Webform::load($sandbox['webforms'][$i]);
+      $elements = $webform->getElementsDecodedAndFlattened();
+
+      // Loop throught the elements - do they have any bhcc_webform_date?
+      //foreach ($elements as $element_key => $element) {
+      foreach ($elements as $element) {
+        if (isset($element['#type']) && $element['#type'] === 'bhcc_webform_date') {
+
+          if (isset($element['#date_max'])) {
+            // Transfer '#date_max' to date_date_max and remove original.
+            $element['#date_date_max'] = $element['#date_max'];
+            unset($element['#date_max']);
+            // \Drupal::logger(CouncillorLookupService::LOG_DESCRIPTOR)->error($e->getMessage());
+            \Drupal::logger(LOG_NAME)->notice('Updating the ' . $webform->id() . ' ' . $element['#title'] . ' #date_date_max');
+          }
+          // Transfer '#date_min' to date_date_min and remove original.
+          if (isset($element['#date_min'])) {
+            $element['#date_date_min'] = $element['#date_min'];
+            unset($element['#date_min']);
+            \Drupal::logger(LOG_NAME)->notice('Updating the ' . $webform->id() . ' ' . $element['#title'] . ' #date_date_min');
+          }
+        }
+      }
+      $webform->save();
+    }
+    $sandbox['current']++;
+  }
+  // Check if update has finished.
+  if ($sandbox['current'] >= $sandbox['total']) {
+    $sandbox['#finished'] = 1;
+  }
+  else {
+    $sandbox['#finished'] = ($sandbox['current'] / $sandbox['total']);
+  }
 }
 
 /**
