@@ -29,31 +29,16 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class BHCCWebformDate extends LocalgovFormsDate {
 
-
-  /**
-   * {@inheritDoc}
-   *
-   * Overrides the Datebase class so that
-   * date validation error messages display in
-   * a UK Style format e.g dd-mm-yyyy.
+ /**
+   * {@inheritdoc}
    */
-  public static function validateDate(&$element, FormStateInterface $form_state, &$complete_form) {
-    parent::validateDate($element, $form_state, $complete_form);
+  public function form(array $form, FormStateInterface $form_state) {
+    $form = parent::form($form, $form_state);
 
-    // get the error and strip out anything after the space - the time part
+    unset($form['validation']['date_container']['date_max']);
+    unset($form['validation']['date_container']['date_min']);
 
-    if (!empty($form_state->getError($element))) {
-      $form_errors = $form_state->getErrors();
-      //$form_state->clearErrors();
-      foreach ($form_errors as $error_key => $error_value) {
-        $arguments = $error_value->getArguments();
-        $string = $error_value->getUntranslatedString();
-        if (str_contains($string, '%name must be on or before %max.') || str_contains($string, '%name must be on or after %min.')) {
-          //strip the time from argument 2 - %max
-          $arguments['%max'] = substr($arguments['%max'], 0, strrpos($arguments['%max'], ' '));
-        }
-      }
-    }
+    return $form;
   }
 
 }
