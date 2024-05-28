@@ -2,15 +2,8 @@
 
 namespace Drupal\bhcc_webform_date\Plugin\WebformElement;
 
-/* use Drupal\Core\Datetime\DateHelper;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\webform\Plugin\WebformElement\WebformCompositeBase;
-use Drupal\webform\WebformSubmissionInterface; */
 use Drupal\localgov_forms_date\Plugin\WebformElement\LocalgovFormsDate;
-
-use Drupal\Core\Datetime\Entity\DateFormat;
-use Drupal\Core\Form\FormStateInterface;
-//use Drupal\webform\Plugin\WebformElement\DateList;
 
 /**
  * Provides a 'bhcc_webform_date' element.
@@ -29,7 +22,7 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class BHCCWebformDate extends LocalgovFormsDate {
 
- /**
+  /**
    * {@inheritdoc}
    */
   public function form(array $form, FormStateInterface $form_state) {
