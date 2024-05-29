@@ -51,7 +51,6 @@ function bhcc_webform_date_update_10101(&$sandbox) {
   if (!isset($sandbox['total'])) {
 
     // Fetch all webform IDs.
-    // $webforms = \Drupal::entityTypeManager()->getStorage('webform');
     $sandbox['webforms'] = array_values(\Drupal::service('entity_type.manager')
       ->getStorage('webform')
       ->getQuery()
@@ -66,33 +65,42 @@ function bhcc_webform_date_update_10101(&$sandbox) {
   for ($i = $sandbox['current']; $i < $max; $i++) {
     if (isset($sandbox['webforms'][$i])) {
       $webform = Webform::load($sandbox['webforms'][$i]);
-      $elements = $webform->getElementsDecodedAndFlattened();
 
-      foreach ($elements as $key => $element) {
+      // Search the flatted list of elements to find all bhcc_webform_date.
+      $flattened_elements = $webform->getElementsDecodedAndFlattened();
+
+      $dateElements = [];
+      foreach ($flattened_elements as $key => $element) {
         if (isset($element['#type']) && $element['#type'] === 'bhcc_webform_date') {
+          if (isset($element['#date_max']) || isset($element['#date_min'])) {
+            // Add to array of elements that need to be updated.
+            $dateElements[$key] = $element;
 
-          if (isset($element['#date_max'])) {
-            // Transfer '#date_max' to date_date_max and remove date_max.
-            $elements[$key]['#date_date_max'] = $element['#date_max'];
-            unset($elements[$key]['#date_max']);
-            $webform->setElements($elements);
-            $webform->save();
-            \Drupal::logger('bhcc_webform_date')->notice('Updating the form:' . $webform->id() . ' element: ' . $element['#title'] . ' #date_date_max field');
-          }
-
-          // Transfer '#date_min' to date_date_min and remove date_min.
-          if (isset($element['#date_min'])) {
-            $elements[$key]['#date_date_min'] = $element['#date_min'];
-            unset($elements[$key]['#date_min']);
-            $webform->setElements($elements);
-            $webform->save();
-            \Drupal::logger('bhcc_webform_date')->notice('Updating the form:' . $webform->id() . ' element: ' . $element['#title'] . ' #date_date_min field');
           }
         }
+      }
+
+      foreach ($dateElements as $key => $element) {
+
+        if (isset($element['#date_max'])) {
+          // Transfer '#date_max' to date_date_max and remove date_max.
+          $element['#date_date_max'] = $element['#date_max'];
+          unset($element['#date_max']);
+          \Drupal::logger('bhcc_webform_date')->notice('Updating the form:' . $webform->id() . ' element: ' . $key . ' #date_date_max field');
+        }
+        if (isset($element['#date_min'])) {
+          // Transfer '#date_min' to date_date_min and remove date_min.
+          $element['#date_date_min'] = $element['#date_min'];
+          unset($element['#date_min']);
+          \Drupal::logger('bhcc_webform_date')->notice('Updating the form:' . $webform->id() . ' element: ' . $key . ' #date_date_min field');
+        }
+        $webform->setElementProperties($key, $element);
+        $webform->save();
       }
     }
     $sandbox['current']++;
   }
+
   // Check if update has finished.
   if ($sandbox['current'] >= $sandbox['total']) {
     $sandbox['#finished'] = 1;
