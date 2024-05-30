@@ -42,8 +42,6 @@ function bhcc_webform_date_update_8001() {
 }
 
 /**
- * Implements hook_update_N().
- *
  * Ensure that date_min and date_max are not used.
  */
 function bhcc_webform_date_update_10101(&$sandbox) {
